@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+current_script_path=${BASH_SOURCE[0]}
+plugin_dir=$(dirname "$(dirname "$current_script_path")")
+
+# shellcheck source=../lib/utils.bash
+source "${plugin_dir}/lib/utils.bash"
+
+curl_opts=(-sI)
+
+if [ -n "${GITHUB_TOKEN:-}" ]; then
+	curl_opts=("${curl_opts[@]}" -H "Authorization: token $GITHUB_TOKEN")
+fi
+
+# Get version from GitHub releases/latest redirect (302 -> /releases/tag/apps_v<VERSION>)
+redirect_url=$(curl "${curl_opts[@]}" "$GH_REPO/releases/latest" | sed -n -e "s|^location: *||p" | sed -n -e "s|\r||p")
+
+if [[ "$redirect_url" == "$GH_REPO/releases" ]]; then
+	version="$(list_all_versions | sort_versions | tail -n1 | xargs echo)"
+else
+	# Extract version from apps_v<VERSION> or oxlint_v<VERSION>
+	version="$(printf "%s\n" "$redirect_url" | sed 's|.*/tag/apps_v||' | sed 's|.*/tag/oxlint_v||')"
+fi
+
+printf "%s\n" "$version"
