@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+current_script_path=${BASH_SOURCE[0]}
+plugin_dir=$(dirname "$(dirname "$current_script_path")")
+
+# shellcheck source=../lib/utils.bash
+source "${plugin_dir}/lib/utils.bash"
+
+mkdir -p "$ASDF_DOWNLOAD_PATH"
+
+release_file="$ASDF_DOWNLOAD_PATH/$TOOL_NAME.tar.gz"
+
+download_release "$ASDF_INSTALL_VERSION" "$release_file"
+
+tar -xzf "$release_file" -C "$ASDF_DOWNLOAD_PATH" || fail "Could not extract $release_file"
+rm -f "$release_file"
+
+# Find and rename the oxlint binary
+binary=$(find "$ASDF_DOWNLOAD_PATH" -type f -name "oxlint*" | head -1)
+[ -z "$binary" ] && fail "Could not find oxlint binary in archive"
+
+mv "$binary" "$ASDF_DOWNLOAD_PATH/$TOOL_NAME"
+chmod +x "$ASDF_DOWNLOAD_PATH/$TOOL_NAME"
