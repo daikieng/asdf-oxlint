@@ -11,7 +11,7 @@ source "${plugin_dir}/lib/utils.bash"
 curl_opts=(-sI)
 
 if [ -n "${GITHUB_TOKEN:-}" ]; then
-	curl_opts=("${curl_opts[@]}" -H "Authorization: token $GITHUB_TOKEN")
+	curl_opts=("${curl_opts[@]}" -H "Authorization: token ${GITHUB_TOKEN}")
 fi
 
 # Get version from GitHub releases/latest redirect (302 -> /releases/tag/apps_v<VERSION>)
