@@ -14,7 +14,7 @@ fail() {
 curl_opts=(-fsSL)
 
 if [ -n "${GITHUB_TOKEN:-}" ]; then
-	curl_opts=("${curl_opts[@]}" -H "Authorization: token $GITHUB_TOKEN")
+	curl_opts=("${curl_opts[@]}" -H "Authorization: token ${GITHUB_TOKEN}")
 fi
 
 sort_versions() {
