@@ -44,7 +44,7 @@ jobs:
     steps:
       - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
       - name: Setup Bats
-        uses: bats-core/bats-action@472edde1138d59aca53ff162fb8d996666d21e4a # 2.0.0
+        uses: bats-core/bats-action@42fcc8700f773c075a16a90eb11674c0318ad507 # 3.0.1
         with:
           support-path: ${{ runner.temp }}/bats-support
           assert-path: ${{ runner.temp }}/bats-assert
