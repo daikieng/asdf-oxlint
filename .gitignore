@@ -9,3 +9,11 @@
 
 # Test artifacts
 /test-output/
+
+# Secrets & sensitive data
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+secrets.json
