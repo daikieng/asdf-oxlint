@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.0](https://github.com/daikieng/asdf-oxlint/compare/v1.0.0...v1.1.0) (2026-02-05)
+
+
+### Features
+
+* Add SECURITY.md ([448e759](https://github.com/daikieng/asdf-oxlint/commit/448e75964ffacd39b72178139e66cbce18eed197))
+* Add SECURITY.md ([e748107](https://github.com/daikieng/asdf-oxlint/commit/e7481074fd11ac5d9f3259da90425f3b01828b63))
+
 ## 1.0.0 (2026-02-04)
 
 
